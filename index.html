@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Auto Retopo for Blender</title>
+<meta name="description" content="Auto Retopo: one-click automatic retopology add-on for Blender. Turns scans, sculpts and messy meshes into clean quad meshes.">
+<style>
+  :root { --bg:#111317; --card:#1a1d23; --text:#e8e9ec; --muted:#9aa0aa; --accent:#f08a24; --line:#2a2e36; }
+  * { box-sizing:border-box; }
+  body { margin:0; background:var(--bg); color:var(--text); font:16px/1.6 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif; }
+  .wrap { max-width:1000px; margin:0 auto; padding:0 16px; }
+  header { padding:56px 0 32px; text-align:center; }
+  h1 { font-size:clamp(32px,6vw,52px); margin:0 0 8px; letter-spacing:-0.5px; }
+  .sub { color:var(--muted); font-size:clamp(17px,2.5vw,20px); max-width:640px; margin:0 auto 28px; }
+  .btn { display:inline-block; background:var(--accent); color:#111; font-weight:700; padding:14px 28px; border-radius:10px; text-decoration:none; }
+  .btn.off { background:#3a3f48; color:var(--muted); cursor:default; }
+  .price { color:var(--muted); margin-top:10px; font-size:14px; }
+  .compare { display:grid; grid-template-columns:1fr 1fr; gap:16px; margin:24px 0 48px; }
+  .compare figure { margin:0; background:var(--card); border:1px solid var(--line); border-radius:12px; overflow:hidden; }
+  .compare img { width:100%; display:block; }
+  .compare figcaption { padding:10px 14px; font-size:14px; color:var(--muted); }
+  .compare b { color:var(--text); }
+  h2 { font-size:26px; margin:48px 0 16px; }
+  .grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:16px; }
+  .card { background:var(--card); border:1px solid var(--line); border-radius:12px; padding:18px 20px; }
+  .card h3 { margin:0 0 6px; font-size:17px; }
+  .card p { margin:0; color:var(--muted); font-size:15px; }
+  ol { padding-left:22px; } li { margin:6px 0; }
+  code { background:var(--card); padding:2px 6px; border-radius:5px; font-size:14px; }
+  footer { border-top:1px solid var(--line); margin-top:56px; padding:24px 0 40px; color:var(--muted); font-size:14px; }
+  @media (max-width:640px) { .compare { grid-template-columns:1fr; } }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <h1>Auto Retopo</h1>
+    <p class="sub">One-click automatic retopology for Blender. Turn scans, sculpts and messy meshes into clean, quad-only topology that sticks to the original surface.</p>
+    <a class="btn off" id="buy" href="#">Coming soon</a>
+    <div class="price">Blender 4.2 and newer &middot; Windows, macOS, Linux</div>
+  </header>
+
+  <div class="compare">
+    <figure><img src="img/before.jpg" alt="Dense triangulated scan mesh before retopology" width="900" height="750"><figcaption><b>Before:</b> 62,976 triangles (scan-like mesh)</figcaption></figure>
+    <figure><img src="img/after.jpg" alt="Clean quad mesh after Auto Retopo" width="900" height="750"><figcaption><b>After:</b> 9,222 clean quads, symmetric, in about 6 seconds</figcaption></figure>
+  </div>
+
+  <h2>What it does</h2>
+  <div class="grid">
+    <div class="card"><h3>Auto face count</h3><p>Pick a detail level (Low, Medium, High, Ultra). The add-on measures how much detail is lost and finds the smallest mesh that keeps it.</p></div>
+    <div class="card"><h3>Fine detail layer</h3><p>A Multires layer shaped to the original keeps pores, relief and scan texture on top of the clean base mesh.</p></div>
+    <div class="card"><h3>Works on bad input</h3><p>Holes, overlaps, joined parts and heavy scans are cleaned automatically with voxel remesh before quad meshing.</p></div>
+    <div class="card"><h3>Symmetry and sharp edges</h3><p>Mirror on X, Y or Z with a welded seam. Keeps hard-surface edges and open borders.</p></div>
+    <div class="card"><h3>Relax &amp; Project</h3><p>Smooths the mesh along the surface and snaps it back, also on selected vertices after manual edits.</p></div>
+    <div class="card"><h3>Analyze and bake</h3><p>Quad percentage, poles, deviation from the original, and a one-click normal map bake with UVs and material.</p></div>
+  </div>
+
+  <h2>Install</h2>
+  <ol>
+    <li>Download the <code>.zip</code> after purchase.</li>
+    <li>In Blender: <b>Edit &rarr; Preferences &rarr; Get Extensions &rarr; Install from Disk</b> and select the zip.</li>
+    <li>Open the 3D Viewport sidebar (<code>N</code>), tab <b>Retopo</b>, select a mesh and click <b>Auto Retopology</b>.</li>
+  </ol>
+
+  <h2>License and updates</h2>
+  <p>Auto Retopo is released under the GNU GPL v3 or later, like Blender itself. Your purchase includes the add-on and all 1.x updates.</p>
+
+  <footer>&copy; 2026 Mustafa Alijagi&#263; &middot; Auto Retopo for Blender. Blender is a trademark of the Blender Foundation; this add-on is not affiliated with it.</footer>
+</div>
+</body>
+</html>
