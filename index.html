@@ -3,31 +3,36 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Auto Retopo for Blender</title>
-<meta name="description" content="Auto Retopo: one-click automatic retopology add-on for Blender. Turns scans, sculpts and messy meshes into clean quad meshes.">
+<title>Blender Add-ons by Mustafa</title>
+<meta name="description" content="Blender add-ons by Mustafa Alijagić: Auto Retopo (one-click quad retopology) and Mesh to CAD (real-size STEP export with true cylinders and cones).">
 <style>
   :root { --bg:#111317; --card:#1a1d23; --text:#e8e9ec; --muted:#9aa0aa; --accent:#f08a24; --line:#2a2e36; }
   * { box-sizing:border-box; }
   body { margin:0; background:var(--bg); color:var(--text); font:16px/1.6 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif; }
   .wrap { max-width:1000px; margin:0 auto; padding:0 16px; }
-  header { padding:56px 0 32px; text-align:center; }
-  h1 { font-size:clamp(32px,6vw,52px); margin:0 0 8px; letter-spacing:-0.5px; }
-  .sub { color:var(--muted); font-size:clamp(17px,2.5vw,20px); max-width:640px; margin:0 auto 28px; }
-  .btn { display:inline-block; background:var(--accent); color:#111; font-weight:700; padding:14px 28px; border-radius:10px; text-decoration:none; }
+  header { padding:56px 0 24px; text-align:center; }
+  h1 { font-size:clamp(30px,5.5vw,46px); margin:0 0 8px; letter-spacing:-0.5px; }
+  .sub { color:var(--muted); font-size:clamp(17px,2.5vw,19px); max-width:640px; margin:0 auto 24px; }
+  nav a { color:var(--text); margin:0 10px; text-decoration:none; border-bottom:2px solid var(--accent); }
+  section { padding-top:40px; }
+  h2 { font-size:clamp(26px,4vw,34px); margin:24px 0 6px; }
+  .lead { color:var(--muted); font-size:18px; margin:0 0 18px; max-width:720px; }
+  .btn { display:inline-block; background:var(--accent); color:#111; font-weight:700; padding:13px 26px; border-radius:10px; text-decoration:none; }
   .btn.off { background:#3a3f48; color:var(--muted); cursor:default; }
-  .price { color:var(--muted); margin-top:10px; font-size:14px; }
-  .compare { display:grid; grid-template-columns:1fr 1fr; gap:16px; margin:24px 0 48px; }
+  .price { color:var(--muted); margin:10px 0 0; font-size:14px; }
+  .compare { display:grid; grid-template-columns:1fr 1fr; gap:16px; margin:24px 0 32px; }
   .compare figure { margin:0; background:var(--card); border:1px solid var(--line); border-radius:12px; overflow:hidden; }
-  .compare img { width:100%; display:block; }
+  .compare img { width:100%; height:auto; display:block; }
   .compare figcaption { padding:10px 14px; font-size:14px; color:var(--muted); }
   .compare b { color:var(--text); }
-  h2 { font-size:26px; margin:48px 0 16px; }
+  h3.part { font-size:20px; margin:32px 0 12px; }
   .grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:16px; }
   .card { background:var(--card); border:1px solid var(--line); border-radius:12px; padding:18px 20px; }
-  .card h3 { margin:0 0 6px; font-size:17px; }
+  .card h4 { margin:0 0 6px; font-size:17px; }
   .card p { margin:0; color:var(--muted); font-size:15px; }
   ol { padding-left:22px; } li { margin:6px 0; }
   code { background:var(--card); padding:2px 6px; border-radius:5px; font-size:14px; }
+  hr { border:0; border-top:1px solid var(--line); margin:56px 0 0; }
   footer { border-top:1px solid var(--line); margin-top:56px; padding:24px 0 40px; color:var(--muted); font-size:14px; }
   @media (max-width:640px) { .compare { grid-template-columns:1fr; } }
 </style>
@@ -35,38 +40,75 @@
 <body>
 <div class="wrap">
   <header>
-    <h1>Auto Retopo</h1>
-    <p class="sub">One-click automatic retopology for Blender. Turn scans, sculpts and messy meshes into clean, quad-only topology that sticks to the original surface.</p>
-    <a class="btn off" id="buy" href="#">Coming soon</a>
-    <div class="price">Blender 4.2 and newer &middot; Windows, macOS, Linux</div>
+    <h1>Blender Add-ons</h1>
+    <p class="sub">Tools that save hours in Blender: clean topology in one click, and models that open as real solids in your CAD software.</p>
+    <nav><a href="#auto-retopo">Auto Retopo</a><a href="#mesh-to-cad">Mesh to CAD</a></nav>
   </header>
 
-  <div class="compare">
-    <figure><img src="img/before.jpg" alt="Dense triangulated scan mesh before retopology" width="900" height="750"><figcaption><b>Before:</b> 62,976 triangles (scan-like mesh)</figcaption></figure>
-    <figure><img src="img/after.jpg" alt="Clean quad mesh after Auto Retopo" width="900" height="750"><figcaption><b>After:</b> 9,222 clean quads, symmetric, in about 6 seconds</figcaption></figure>
-  </div>
+  <section id="auto-retopo">
+    <h2>Auto Retopo</h2>
+    <p class="lead">One-click automatic retopology. Turn scans, sculpts and messy meshes into clean, quad-only topology that sticks to the original surface.</p>
+    <a class="btn off" href="#auto-retopo">Coming soon</a>
+    <p class="price">Blender 4.2 and newer &middot; Windows, macOS, Linux</p>
 
-  <h2>What it does</h2>
-  <div class="grid">
-    <div class="card"><h3>Auto face count</h3><p>Pick a detail level (Low, Medium, High, Ultra). The add-on measures how much detail is lost and finds the smallest mesh that keeps it.</p></div>
-    <div class="card"><h3>Fine detail layer</h3><p>A Multires layer shaped to the original keeps pores, relief and scan texture on top of the clean base mesh.</p></div>
-    <div class="card"><h3>Works on bad input</h3><p>Holes, overlaps, joined parts and heavy scans are cleaned automatically with voxel remesh before quad meshing.</p></div>
-    <div class="card"><h3>Symmetry and sharp edges</h3><p>Mirror on X, Y or Z with a welded seam. Keeps hard-surface edges and open borders.</p></div>
-    <div class="card"><h3>Relax &amp; Project</h3><p>Smooths the mesh along the surface and snaps it back, also on selected vertices after manual edits.</p></div>
-    <div class="card"><h3>Analyze and bake</h3><p>Quad percentage, poles, deviation from the original, and a one-click normal map bake with UVs and material.</p></div>
-  </div>
+    <div class="compare">
+      <figure><img src="img/before.jpg" alt="Dense triangulated scan mesh before retopology" width="900" height="750"><figcaption><b>Before:</b> 62,976 triangles (scan-like mesh)</figcaption></figure>
+      <figure><img src="img/after.jpg" alt="Clean quad mesh after Auto Retopo" width="900" height="750"><figcaption><b>After:</b> 9,222 clean quads, symmetric, in about 6 seconds</figcaption></figure>
+    </div>
 
-  <h2>Install</h2>
-  <ol>
-    <li>Download the <code>.zip</code> after purchase.</li>
-    <li>In Blender: <b>Edit &rarr; Preferences &rarr; Get Extensions &rarr; Install from Disk</b> and select the zip.</li>
-    <li>Open the 3D Viewport sidebar (<code>N</code>), tab <b>Retopo</b>, select a mesh and click <b>Auto Retopology</b>.</li>
-  </ol>
+    <div class="grid">
+      <div class="card"><h4>Auto face count</h4><p>Pick a detail level (Low, Medium, High, Ultra). The add-on measures how much detail is lost and finds the smallest mesh that keeps it.</p></div>
+      <div class="card"><h4>Fine detail layer</h4><p>A Multires layer shaped to the original keeps pores, relief and scan texture on top of the clean base mesh.</p></div>
+      <div class="card"><h4>Works on bad input</h4><p>Holes, overlaps, joined parts and heavy scans are cleaned automatically with voxel remesh before quad meshing.</p></div>
+      <div class="card"><h4>Symmetry and sharp edges</h4><p>Mirror on X, Y or Z with a welded seam. Keeps hard-surface edges and open borders.</p></div>
+      <div class="card"><h4>Relax &amp; Project</h4><p>Smooths the mesh along the surface and snaps it back, also on selected vertices after manual edits.</p></div>
+      <div class="card"><h4>Analyze and bake</h4><p>Quad percentage, poles, deviation from the original, and a one-click normal map bake with UVs and material.</p></div>
+    </div>
 
-  <h2>License and updates</h2>
-  <p>Auto Retopo is released under the GNU GPL v3 or later, like Blender itself. Your purchase includes the add-on and all 1.x updates.</p>
+    <h3 class="part">Where to find it</h3>
+    <p>3D Viewport sidebar (<code>N</code>), tab <b>Retopo</b>: select a mesh and click <b>Auto Retopology</b>.</p>
+  </section>
 
-  <footer>&copy; 2026 Mustafa Alijagi&#263; &middot; Auto Retopo for Blender. Blender is a trademark of the Blender Foundation; this add-on is not affiliated with it.</footer>
+  <hr>
+
+  <section id="mesh-to-cad">
+    <h2>Mesh to CAD</h2>
+    <p class="lead">Bring Blender models into SolidWorks, Fusion, Inventor and other CAD software as real solids: set the true size from one known measurement and export a clean STEP file in millimetres.</p>
+    <a class="btn off" href="#mesh-to-cad">Coming soon</a>
+    <p class="price">Blender 4.2 and newer &middot; no extra libraries needed</p>
+
+    <div class="compare">
+      <figure><img src="img/cad_before.jpg" alt="Flange as a triangle mesh in Blender" width="820" height="620"><figcaption><b>Before:</b> flange as a mesh, 693 triangles</figcaption></figure>
+      <figure><img src="img/cad_after.jpg" alt="Flange as a STEP solid with true cylinders" width="820" height="620"><figcaption><b>After:</b> STEP solid with 70 real faces: planes, <b>true cylinders</b> (blue) and cones</figcaption></figure>
+    </div>
+
+    <div class="grid">
+      <div class="card"><h4>Real size in one step</h4><p>Select an edge or two points with a known length, type the real value (for example 120 mm) and the whole model scales to it.</p></div>
+      <div class="card"><h4>True cylinders and cones</h4><p>Holes, shafts and chamfers become real cylindrical and conical faces with circular edges, so diameters and axes can be picked in CAD.</p></div>
+      <div class="card"><h4>Flat faces merged</h4><p>Coplanar triangles become one CAD face. A cube exports as 6 faces, not 12 triangles.</p></div>
+      <div class="card"><h4>Check before export</h4><p>Size in mm, open edges, non-manifold edges, flipped normals, volume, and a warning when the file will be too heavy for CAD.</p></div>
+      <div class="card"><h4>Multiple bodies</h4><p>Each object, or each loose part, becomes its own named solid body in one STEP file.</p></div>
+      <div class="card"><h4>Standard STEP</h4><p>AP214 in millimetres, modifiers and transforms applied, mirrored objects handled correctly.</p></div>
+    </div>
+
+    <h3 class="part">Where to find it</h3>
+    <p>3D Viewport sidebar (<code>N</code>), tab <b>CAD</b>, or <b>File &rarr; Export &rarr; STEP for CAD (.step)</b>.</p>
+  </section>
+
+  <hr>
+
+  <section>
+    <h2>Install</h2>
+    <ol>
+      <li>Download the add-on <code>.zip</code> after purchase.</li>
+      <li>In Blender: <b>Edit &rarr; Preferences &rarr; Get Extensions &rarr; Install from Disk</b> and select the zip.</li>
+      <li>Open the 3D Viewport sidebar with <code>N</code> and find the add-on tab.</li>
+    </ol>
+    <h3 class="part">License and updates</h3>
+    <p>Both add-ons are released under the GNU GPL v3 or later, like Blender itself. A purchase includes the add-on and all 1.x updates.</p>
+  </section>
+
+  <footer>&copy; 2026 Mustafa Alijagi&#263; &middot; Blender Add-ons. Blender is a trademark of the Blender Foundation; these add-ons are not affiliated with it. SolidWorks, Fusion and Inventor are trademarks of their respective owners.</footer>
 </div>
 </body>
 </html>
